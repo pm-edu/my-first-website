@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEFL Reading Test</title>
+    <style>
+        /* 기본 레이아웃 스타일 */
+        body { font-family: 'Roboto', sans-serif; margin: 0; background-color: #f8f9fa; }
+        .test-container { display: flex; flex-direction: column; height: 100vh; }
+
+        /* A. 헤더 스타일 */
+        .test-header { background-color: #343a40; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .timer { background-color: #dc3545; padding: 5px 10px; border-radius: 5px; font-weight: bold; }
+
+        /* B & C. 메인 콘텐츠 스타일 */
+        .test-main { display: flex; flex: 1; overflow: hidden; }
+        .passage-area, .question-area { flex: 1; padding: 25px; overflow-y: auto; border-right: 1px solid #dee2e6; }
+        .passage-area { background-color: #fff; }
+        .question-area { background-color: #f4f6f9; }
+        
+        /* C. 문제 스타일 */
+        .question-number { font-size: 1.5em; color: #007bff; margin-bottom: 15px; font-weight: 700; }
+        .options label { display: block; background-color: #fff; padding: 12px; margin-bottom: 10px; border-radius: 5px; cursor: pointer; border: 1px solid #ced4da; transition: border-color 0.2s; }
+        .options label:hover { border-color: #007bff; }
+        .options input:checked + label { background-color: #e2f0ff; border-color: #007bff; font-weight: 500; }
+        
+        /* D. 푸터 스타일 */
+        .test-footer { background-color: #fff; padding: 15px 20px; display: flex; justify-content: space-between; border-top: 1px solid #dee2e6; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); }
+        .footer-buttons button { padding: 10px 20px; margin-left: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: 500; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-secondary { background-color: #6c757d; color: white; }
+        .btn-finish { background-color: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="test-container">
+    
+    <header class="test-header">
+        <div>TOEFL Reading Section 1 (Q1 - Q12)</div>
+        <div class="timer">남은 시간: 00:15:30</div>
+    </header>
+
+    <main class="test-main">
+        
+        <section class="passage-area">
+            <h2>Passage: The Rise of E-Commerce in Developing Nations</h2>
+            <p>
+                The expansion of digital infrastructure has spurred significant changes in global retail. In developing nations, this shift is particularly pronounced, offering consumers access to goods previously unavailable and creating new economic opportunities...
+                </p>
+            <p>
+                ...Critics, however, point out issues concerning logistics and trust. The last sentence of the second paragraph, for instance, highlights the challenge of secure payment methods, which slows down widespread adoption. (Note: 이 부분은 하이라이트/메모 액션을 위한 예시입니다.)
+            </p>
+            </section>
+
+        <section class="question-area">
+            <div class="question-number">Question 5 of 12</div>
+            
+            <div class="question-content">
+                <p>According to the passage, what is one major obstacle to the rapid adoption of e-commerce in developing nations?</p>
+                <div class="options">
+                    <input type="radio" id="option_a" name="q5_answer" value="a" onchange="saveAnswer('q5', 'a')">
+                    <label for="option_a">A. Lack of diverse goods in the marketplace.</label>
+
+                    <input type="radio" id="option_b" name="q5_answer" value="b" onchange="saveAnswer('q5', 'b')">
+                    <label for="option_b">B. Limited access to basic internet infrastructure.</label>
+                    
+                    <input type="radio" id="option_c" name="q5_answer" value="c" onchange="saveAnswer('q5', 'c')">
+                    <label for="option_c">C. Concerns regarding secure and trusted payment methods.</label>
+                    
+                    <input type="radio" id="option_d" name="q5_answer" value="d" onchange="saveAnswer('q5', 'd')">
+                    <label for="option_d">D. Overregulation by local government authorities.</label>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <p><strong>Note/Highlight Area Placeholder:</strong></p>
+                <textarea rows="4" cols="50" placeholder="이 문제와 관련된 메모를 여기에 작성하세요." onchange="saveNote('q5', this.value)"></textarea>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="test-footer">
+        <div class="navigation-map">
+            <button class="btn-secondary">Review (3 Unanswered)</button>
+        </div>
+        <div class="footer-buttons">
+            <button class="btn-secondary" onclick="handleNavigation(-1)">← 이전 문제</button>
+            <button class="btn-primary" onclick="handleNavigation(1)">다음 문제 →</button>
+            <button class="btn-finish" onclick="handleTestSubmission()">섹션 완료 및 제출</button>
+        </div>
+    </footer>
+
+</div>
+
+<script>
+    // 1. 타이머 관련 액션
+    function startTimer(duration) {
+        // 실제 구현 시, 서버 시간과 동기화하여 타이머를 시작/갱신합니다.
+        // 1초마다 타이머 UI를 업데이트하고 0이 되면 handleTestSubmission()을 호출합니다.
+        console.log("Timer started for " + duration + " minutes.");
+    }
+    
+    // 2. 답안 저장 액션 (사용자 반응)
+    function saveAnswer(questionId, answerValue) {
+        // 사용자가 라디오 버튼/체크박스를 클릭할 때마다 호출
+        // AJAX 또는 Fetch를 사용하여 서버의 세션에 답안을 '자동 저장' (Auto-Save)
+        console.log(`Saving answer for ${questionId}: ${answerValue}`);
+    }
+
+    // 3. 지문 하이라이트/메모 액션
+    function saveNote(questionId, noteText) {
+        // 사용자가 메모를 작성하거나 특정 텍스트를 드래그 했을 때 호출
+        // 현재 문제와 연결된 메모 또는 하이라이트 데이터를 저장합니다.
+        console.log(`Note updated for ${questionId}.`);
+    }
+
+    // 4. 탐색 액션 (버튼 클릭)
+    function handleNavigation(direction) {
+        // direction: 1 (다음), -1 (이전)
+        // 현재 문제 번호를 업데이트하고, 해당 문제의 UI를 로드
+        console.log(`Navigating to next/previous question. Direction: ${direction}`);
+        // 서버에서 해당 문제의 저장된 답안을 불러와 UI에 표시 ('Sticky' 기능)
+    }
+
+    // 5. 제출 액션 (섹션 완료 버튼)
+    function handleTestSubmission() {
+        // 1. 미응답 문제 확인 팝업 (Optional)
+        const isConfirmed = confirm("섹션을 완료하고 제출하시겠습니까? (미응답 문제 3개)");
+        if (isConfirmed) {
+            // 2. 최종 답안을 서버에 전송 (Final Submission)
+            console.log("Test submitted to server for final grading.");
+            // 3. `/test/toefl/listening/start` 등 다음 섹션 페이지로 이동
+        }
+    }
+
+    // 페이지 로드 시 타이머 시작
+    window.onload = () => {
+        startTimer(15.5); // 예시로 15분 30초
+    };
+</script>
+
+</body>
+</html>
